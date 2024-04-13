@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
   });
 });
 
+// http://localhost/users
 /**
  * Route: /users
  * Method: GET
@@ -20,6 +21,39 @@ app.get("/", (req, res) => {
  * Access: public
  * Parameters: NONE
  */
+app.get("/users", (req, res) => {
+  res.status(200).json({
+    success: true,
+    data: users,
+  });
+});
+
+// http://localhost/users/4(id)
+/**
+ * Route: /users/;id
+ * Method: GET
+ * Description:Get single user by their id
+ * Access: public
+ * Parameters: id
+ */
+
+app.get("/users/:id", (req, res) => {
+  // const id = req.params.id
+  const { id } = req.params;
+  console.log(req.params);
+  const user = users.find((each) => each.id === id);
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User does not exists",
+    });
+  }
+  return res.status(200).json({
+    success: true,
+    message: "User Found",
+    data: user,
+  });
+});
 
 app.get("*", (req, res) => {
   res.status(404).json({

@@ -91,6 +91,59 @@ app.post("/users", (req, res) => {
   });
 });
 
+/**
+ * Route: /users/:id
+ * Method: Put
+ * Description: updating a user by their id
+ * Access: public
+ * Parameters: ID
+ */
+
+app.put("/users/:id", (req, res) => {
+  const { id } = req.params;
+  const { data } = req.body;
+  const user = users.find((each) => each.id === id);
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User does not exists",
+    });
+  }
+  const updateUserData = users.map((each) => {
+    if (each.id === id) {
+      return {
+        ...each,
+        ...data,
+      };
+    }
+    return each;
+  });
+  return res.status(200).json({
+    success: true,
+    message: "User Updated successfully",
+    data: updateUserData,
+  })
+});
+
+/**
+ * Route: /users/:id
+ * Method: Delete
+ * Description: Deleting a user by their id
+ * Access: public
+ * Parameters: ID
+ */
+app.delete("/users/:id", (req, res)=>{
+  const { id } = req.params;
+  const user = users.find((each) => each.id === id);
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User does not exists",
+    });
+  }
+  //need to build logic 
+})
+
 app.get("*", (req, res) => {
   res.status(404).json({
     message: "This route does not exist",

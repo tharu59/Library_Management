@@ -55,6 +55,42 @@ app.get("/users/:id", (req, res) => {
   });
 });
 
+/**
+ * Route: /users/
+ * Method: POST
+ * Description: Creating a new user
+ * Access: public
+ * Parameters: NONE
+ */
+
+app.post("/users", (req, res) => {
+  const { id, name, surname, email, subscriptionType, subscriptionDate } =
+    req.body;
+
+  const user = users.find((each) => each.id === id);
+
+  if (user) {
+    return res.status(404).json({
+      success: false,
+      message: "User with ID already exists",
+    });
+  }
+  users.push({
+    id,
+    name,
+    surname,
+    email,
+    subscriptionType,
+    subscriptionDate,
+  });
+
+  return res.status(201).json({
+    success: true,
+    message: "User Added successfully",
+    data: users,
+  });
+});
+
 app.get("*", (req, res) => {
   res.status(404).json({
     message: "This route does not exist",

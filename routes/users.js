@@ -171,11 +171,11 @@ router.get("/subscription-details/:id", (req, res) => {
   };
 
   const subscriptionType = (date = "") => {
-    if ((user.subscriptionType === "Basic")) {
+    if (user.subscriptionType === "Basic") {
       date = date + 90;
-    } else if ((user.subscriptionType === "Standard")) {
+    } else if (user.subscriptionType === "Standard") {
       date = date + 180;
-    } else if ((user.subscriptionType === "Premium")) {
+    } else if (user.subscriptionType === "Premium") {
       date = date + 365;
     }
     return date;

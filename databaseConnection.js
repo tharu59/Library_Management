@@ -6,8 +6,7 @@ function DbConnection() {
   mongoose.connect(DB_URL, {
     // useNewUrlParser: true,
     // useUnifiedTopology: true,
-    // first two uncomment 
-
+    // ==first two uncomment
     // useCreateIndex: true,
     // useFindAndModify: false,
   });
@@ -15,7 +14,7 @@ function DbConnection() {
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
-db.on("open", function () {
-    console.log("DB Connected !!");
+db.once("open", function () {
+  console.log("DB Connected !!");
 });
 module.exports = DbConnection;
